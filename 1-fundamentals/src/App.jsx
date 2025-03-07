@@ -1,4 +1,5 @@
 import './App.css'
+import UserCard from './components/UserCard'
 
 // - App კომპონენტი, რომელიც მოთავსებულია შესაბამისი დასახელების ფაილში (App.jsx)
 // - ფუნქცია App-მა უნდა დააბრუნოს ერთი ელემენტი
@@ -22,6 +23,12 @@ function App() {
       */}
       <br/>
       <h2>That's my first webpage made with React</h2>
+      <div className='card-container'>
+        <UserCard firstName="გიორგი" lastName="ბერიძე" age={28} country="საქართველო" city="თბილისი" />
+        <UserCard firstName="ლაშა" lastName="ბერიძე" age={22} country="საქართველო" city="ქუთაისი" />
+        <UserCard firstName="ანა" lastName="დავითაძე" age={28} country="საქართველო" city="ბათუმი" />
+        <UserCard firstName="მარიამ" lastName="ჩხარტიშვილი" age={12} country="საქართველო" city="ბათუმი" />
+      </div>
     </>
   )
 }
