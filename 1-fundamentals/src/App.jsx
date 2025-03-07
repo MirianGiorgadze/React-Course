@@ -1,33 +1,27 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 
+// - App კომპონენტი, რომელიც მოთავსებულია შესაბამისი დასახელების ფაილში (App.jsx)
+// - ფუნქცია App-მა უნდა დააბრუნოს ერთი ელემენტი
+// - ამ შემთხვევაში ეს არის ფრაგმენტი (<>), რომელიც არ არის ხილვადი ბრაუზერში
+// - რადგან jsx ფაილში დაიმპორტებულია App.css ფაილი, მასში განსაზღვრული სტილიც
+// იმოქმედებს დაბრუნებულ სტრუქტურაზე
+
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      {/* ფიგურულ ფრჩხილებში იხსნება JS გარემო, ასე იწერება კომენტარი */}
+      {/* inline სტილის ჩასმა jsx-ში ხდება თავისებურად, ობიექტის სახით */}
+      {/* სტილის property-ები წარმოდგენილია camelCase ფორმით */}
+      <h1 style={{color: "white", backgroundColor: "black", textAlign: "center"}}>
+        Hello World
+      </h1>
+      {/*  
+          br თეგი არის void, სტანდარტული html-ისგან განსხვავებით
+          jsx-ში ასეთი void თეგები ყოველთვის უნდა დაიხუროს "/" სიმბოლოთი
+      */}
+      <br/>
+      <h2>That's my first webpage made with React</h2>
     </>
   )
 }

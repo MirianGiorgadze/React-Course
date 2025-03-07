@@ -1,10 +1,8 @@
-import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import './index.css'
 import App from './App.jsx'
 
+// აქ აღვწერთ რა დარენდერდეს root ელემენტის შიგნით 
+// div id-ით root შეგიძლიათ იპოვოთ index.html ფაილში
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
     <App />
-  </StrictMode>,
 )
