@@ -2,6 +2,7 @@ import "./UserCard.css";
 
 function UserCard(props) {
   return (
+
     <div className="user-card">
       <h2>{props.firstName} {props.lastName}</h2>
       <p>ასაკი: {props.age}</p>

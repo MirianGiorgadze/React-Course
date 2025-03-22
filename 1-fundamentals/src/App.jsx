@@ -1,5 +1,6 @@
 import './App.css'
 import UserCard from './components/UserCard'
+import UserPost from './components/UserPost'
 
 // - App კომპონენტი, რომელიც მოთავსებულია შესაბამისი დასახელების ფაილში (App.jsx)
 // - ფუნქცია App-მა უნდა დააბრუნოს ერთი ელემენტი
@@ -28,6 +29,9 @@ function App() {
         <UserCard firstName="ლაშა" lastName="ბერიძე" age={22} country="საქართველო" city="ქუთაისი" />
         <UserCard firstName="ანა" lastName="დავითაძე" age={28} country="საქართველო" city="ბათუმი" />
         <UserCard firstName="მარიამ" lastName="ჩხარტიშვილი" age={12} country="საქართველო" city="ბათუმი" />
+        <UserPost title={"პირველი პოსტი"} author={"მირიანი"} uploadDate={"22 მარტი"}>
+          <h4 className="red">დღეს პირველი აპრილია</h4>
+        </UserPost>
       </div>
     </>
   )
