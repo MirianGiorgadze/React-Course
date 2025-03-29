@@ -1,0 +1,35 @@
+/* ხილის სიის კონტეინერი */
+.fruits-container {
+    max-width: 400px;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  /* სიის სტილი */
+  .fruits-list {
+    list-style: none; /* წერტილების წაშლა */
+    padding: 0;
+  }
+  
+  /* თითოეული ელემენტი */
+  .fruit-item {
+    font-size: 20px;
+    font-weight: bold;
+    padding: 12px;
+    margin: 8px 0;
+    border-radius: 8px;
+    background: white;
+    color: #333;
+    transition: transform 0.3s ease;
+  }
+  
+  /* ჰოვერ ეფექტი */
+  .fruit-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  }
+  
