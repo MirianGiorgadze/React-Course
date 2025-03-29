@@ -30,7 +30,7 @@ function App() {
         <UserCard firstName="ანა" lastName="დავითაძე" age={28} country="საქართველო" city="ბათუმი" />
         <UserCard firstName="მარიამ" lastName="ჩხარტიშვილი" age={12} country="საქართველო" city="ბათუმი" />
         <UserPost title={"პირველი პოსტი"} author={"მირიანი"} uploadDate={"22 მარტი"}>
-          <h4 className="red">დღეს პირველი აპრილია</h4>
+          <UserCard firstName="მარიამ" lastName="ჩხარტიშვილი" age={12} country="საქართველო" city="ბათუმი" />
         </UserPost>
       </div>
     </>
