@@ -8,7 +8,7 @@ import UserPost from './components/start/UserPost'
 // - რადგან jsx ფაილში დაიმპორტებულია App.css ფაილი, მასში განსაზღვრული სტილიც
 // იმოქმედებს დაბრუნებულ სტრუქტურაზე
 
-function App1() {
+function Appp() {
 
   return (
     <>

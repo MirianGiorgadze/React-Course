@@ -2,18 +2,23 @@ import './SignInForm.css';
 
 const SignInForm = () => {
   const handleSubmit = (e) => {
-    e.preventDefault();
     alert('ფორმა გაიგზავნა!');
   };
+
+  const handleInput = (e) => {
+    if(!e.target.value.includes("@")){
+      alert("Your email doesn't include @@@@??????????????????")
+    }
+  }
 
   return (
     <div className="container">
       <div className="form-box">
         <h2>Sign In</h2>
-        <form onSubmit={handleSubmit}>
+        <form>
           <label>
             Email:
-            <input type="email" name="email" placeholder="შეიყვანე ელ. ფოსტა" required />
+            <input type="email" name="email" placeholder="შეიყვანე ელ. ფოსტა" required onChange={handleInput}/>
           </label>
 
           <label>
@@ -21,7 +26,7 @@ const SignInForm = () => {
             <input type="password" name="password" placeholder="შეიყვანე პაროლი" required />
           </label>
 
-          <button type="submit">Sign In</button>
+          <button onClick={handleSubmit}>Sign In</button>
         </form>
       </div>
     </div>
