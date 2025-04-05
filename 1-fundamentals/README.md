@@ -57,3 +57,80 @@ const App = () => {
 };
 ```
 ამ კოდში name="ნიკა" მნიშვნელობა მშობელმა კომპონენტმა (App) გადასცა შვილობილ Greeting კომპონენტს props-ის სახით.
+
+#### children prop
+children არის სპეციალური prop, რომელსაც React ავტომატურად გადასცემს კომპონენტს – ეს არის ყველა ის ელემენტი ან კონტენტი, რაც წერია კომპონენტის გახსნასა და დახურვას შორის.
+
+მაგალითისთვის:
+```jsx
+export default function UserPost(props){
+    // const {author, title, uploadDate, children} = props
+    return(
+        <div className="user-post">
+            <h3>{props.title}</h3>
+            {props.children}
+            <h5><b>Author:</b> {props.author}</h5>
+            <p>Uploaded on {props.uploadDate}</p>
+            
+        </div>
+    )
+}
+```
+UserPost კომპონენტის გახსნა-დახურვას შორის მოთავსებული შიგთავსი დაიბეჭდება  h3 და h5 ელემენტებს შორის,
+რადგან {props.children} მოთავსებულია ამ წერტილში.
+
+### კლას კომპონენტი
+კლას კომპონენტი მსგავსად მუშაობს როგორც ფუნქციონალური კომპონენტები, იმ განსხვავებით, რომ იყენებს render
+მეთოდს.
+
+
+```jsx
+class FruitsList extends Component {
+  render() {
+    const fruits = ['ვაშლი', 'ბანანი', 'ატამი'];
+
+    return (
+      <div className="fruits-container">
+        <h2>ხილის სია</h2>
+        <ul className="fruits-list">
+          {fruits.map((fruit, index) => (
+            <li key={index} className="fruit-item">{fruit}</li>
+          ))}
+        </ul>
+      </div>
+    );
+  }
+}
+```
+
+
+### სიების გამოყენება
+users ცვლადში მოცემულია მომხმარებლების სია.
+map ფუნქციის გამოყენებით შეგვიძლია თითოეული მათგანის შესახებ ინფორმაციის დაბეჭდვა.
+ამისთვის აუცილებელია, რომ map ფუნქციას გადავცეთ მეორე პარამეტრი index - რომელიც იქნება 
+უნიკალური ატრიბუტი key-ის მნიშვნელობა რენდერისას. 
+key ატრიბუტის მითითების გარეშე ჩვენ ვერ შევძლებთ გამოვსახოთ ელემენტები.
+
+```jsx
+class UsersList extends Component {
+  render() {
+    const users = [
+        {firstName: "ლაშა", lastName: "მოსიძე"}, 
+        {firstName: "საბა", lastName: "აბუსელიძე"}, 
+        {firstName: "ლაშა", lastName: "ბერიძე"}
+    ];
+
+    return (
+      <div className="fruits-container">
+        <h2>მომხმარებლების სია</h2>
+        <ul className="fruits-list">
+          {users.map((user, index) => (
+            <li key={index} className="fruit-item">{user.firstName} {user.lastName}</li>
+          ))}
+        </ul>
+      </div>
+    );
+  }
+}
+export default UsersList;
+```

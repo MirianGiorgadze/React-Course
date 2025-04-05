@@ -18,7 +18,7 @@ const SignInForm = () => {
         <form>
           <label>
             Email:
-            <input type="email" name="email" placeholder="შეიყვანე ელ. ფოსტა" required onChange={handleInput}/>
+            <input type="email" name="email" placeholder="შეიყვანე ელ. ფოსტა" required onBlur={handleInput}/>
           </label>
 
           <label>
