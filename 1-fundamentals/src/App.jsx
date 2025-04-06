@@ -4,12 +4,14 @@ import FruitsList from './components/classComponents/FruitsList'
 import UsersList from './components/classComponents/UsersList'
 import SignInForm from './components/events/SignInForm'
 import UserPost from './components/start/UserPost'
+import Counter from './components/states/Counter'
 
 function App() {
 
   return (
     <>
       <SignInForm/>
+      <Counter/>
       {/* <FruitsList/>
       <FruitAlternative/>
       <UsersList/> */}
