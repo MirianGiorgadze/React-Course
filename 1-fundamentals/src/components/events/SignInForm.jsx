@@ -1,6 +1,6 @@
 import './SignInForm.css';
 
-const SignInForm = () => {
+export default function SignInForm () {
   const handleSubmit = (e) => {
     alert('ფორმა გაიგზავნა!');
   };
@@ -32,5 +32,3 @@ const SignInForm = () => {
     </div>
   );
 };
-
-export default SignInForm;

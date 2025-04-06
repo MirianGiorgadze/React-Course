@@ -1,23 +1,27 @@
 import './App.css'
-import FruitAlternative from './components/classComponents/FruitAlternative'
-import FruitsList from './components/classComponents/FruitsList'
-import UsersList from './components/classComponents/UsersList'
-import SignInForm from './components/events/SignInForm'
-import UserPost from './components/start/UserPost'
-import Counter from './components/states/Counter'
+import SignInForm from './components/events/SignInForm';
+import Counter from './components/states/Counter';
+import UsersList from './components/usersList/UsersList'
 
 function App() {
-
+  const users = [
+    { firstName: "სანდრო", lastName: "მოსიძე", age: 25, country: "საქართველო", city: "თბილისი" },
+    { firstName: "საბა", lastName: "აბუსელიძე", age: 22, country: "საქართველო", city: "ბათუმი" },
+    { firstName: "ლაშა", lastName: "ბერიძე", age: 30, country: "საქართველო", city: "ქუთაისი" }
+  ];
   return (
     <>
-      <SignInForm/>
-      <Counter/>
+      {/* <SignInForm/>
+      <Counter/> */}
       {/* <FruitsList/>
       <FruitAlternative/>
       <UsersList/> */}
       {/* <UserPost author={"Mirian"} title={"React-course"} uploadDate={"March 22, 2025"}>
           ეს არის შვილი prop
       </UserPost> */}
+      {/* <UsersList users={users}/>
+      <SignInForm/> */}
+      <Counter/>
     </>
   )
 }
