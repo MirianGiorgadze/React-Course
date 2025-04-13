@@ -6,16 +6,19 @@ function Counter() {
   const [firstName, setFirstName] = useState("John");
   const [lastName, setLastName] = useState("Doe");
   const [age, setAge] = useState(100);
+  const [person, setPerson] = useState(
+    {firstName: "John", lastName: "Doe", age: 100});
 
   const firstNameInput = document.getElementById("firstNameInput");
   const lastNameInput = document.getElementById("lastNameInput");
   const ageInput = document.getElementById("ageInput");
 
   const changeData = () => {
-    setFirstName(firstNameInput.value);
-    setLastName(lastNameInput.value);
-    setAge(ageInput.value);
+     setPerson({...person, age: ageInput.value});
   }
+
+  // const someObject = {firstName: "Zaza", lastName: "Dolidze", firstName: "Sandro"};
+  // const newObject = {...someObject, ...person}
 
   const increaseCount = (e) => {
     setCount(count + 1); // state-ის განახლება
@@ -35,7 +38,7 @@ function Counter() {
       <input type="text" id="firstNameInput" placeholder='სახელი' onChange={changeData}></input>
       <input type="text" id="lastNameInput" placeholder='გვარი' onChange={changeData}></input>
       <input type="text" id="ageInput" placeholder='ასაკი' onChange={changeData}></input>
-      <p>სახელი: {firstName}; გვარი: {lastName}; ასაკი: {age}</p>
+      <p>სახელი: {person.firstName}; გვარი: {person.lastName}; ასაკი: {person.age}</p>
     </div>
   );
 }
