@@ -1,7 +1,5 @@
 import './App.css'
-import SignInForm from './components/events/SignInForm';
 import Counter from './components/states/Counter';
-import UsersList from './components/usersList/UsersList'
 
 function App() {
   const users = [
