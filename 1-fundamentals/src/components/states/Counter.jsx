@@ -1,33 +1,35 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 function Counter() {
-  const [count, setCount] = useState(0); 
-  const [word, setWord] = useState("First Word")// საწყისი მნიშვნელობა: 0
-  const [firstName, setFirstName] = useState("John");
-  const [lastName, setLastName] = useState("Doe");
-  const [age, setAge] = useState(100);
+  const [count, setCount] = useState(0); // საწყისი მნიშვნელობა: 0
+
   const [person, setPerson] = useState(
     {firstName: "John", lastName: "Doe", age: 100});
 
-  const firstNameInput = document.getElementById("firstNameInput");
-  const lastNameInput = document.getElementById("lastNameInput");
   const ageInput = document.getElementById("ageInput");
 
   const changeData = () => {
      setPerson({...person, age: ageInput.value});
   }
 
-  // const someObject = {firstName: "Zaza", lastName: "Dolidze", firstName: "Sandro"};
-  // const newObject = {...someObject, ...person}
-
-  const increaseCount = (e) => {
+  const increaseCount = () => {
     setCount(count + 1); // state-ის განახლება
   };
 
-  const changeText = (e) => {
-    setWord(e.target.value);
-    console.log(word);
-  }
+  useEffect(
+    () => {console.log("Person value changed!")},
+    [person, count]
+  );
+
+  useEffect(
+    () => {console.log("Count value changed!")},
+    []
+  );
+
+  useEffect(
+    () => {console.log("useEffect function #2 invoked!")}
+  );
+
   return (
     <div>
       {/* <p>Count: {count}</p>
@@ -39,6 +41,10 @@ function Counter() {
       <input type="text" id="lastNameInput" placeholder='გვარი' onChange={changeData}></input>
       <input type="text" id="ageInput" placeholder='ასაკი' onChange={changeData}></input>
       <p>სახელი: {person.firstName}; გვარი: {person.lastName}; ასაკი: {person.age}</p>
+      <div>
+        <button onClick={increaseCount}>Counter</button>
+        <p>{count}</p>
+      </div>
     </div>
   );
 }

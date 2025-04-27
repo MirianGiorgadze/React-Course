@@ -1,4 +1,5 @@
 import './App.css'
+import Effects from './components/effects/effects';
 import Counter from './components/states/Counter';
 
 function App() {
@@ -9,17 +10,7 @@ function App() {
   ];
   return (
     <>
-      {/* <SignInForm/>
-      <Counter/> */}
-      {/* <FruitsList/>
-      <FruitAlternative/>
-      <UsersList/> */}
-      {/* <UserPost author={"Mirian"} title={"React-course"} uploadDate={"March 22, 2025"}>
-          ეს არის შვილი prop
-      </UserPost> */}
-      {/* <UsersList users={users}/>
-      <SignInForm/> */}
-      <Counter/>
+      <Effects/>
     </>
   )
 }
