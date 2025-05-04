@@ -1,5 +1,7 @@
 import './App.css'
+import CleanupFunction from './components/effects/CleanupFunction';
 import Effects from './components/effects/effects';
+import FetchData from './components/effects/FetchData';
 import Counter from './components/states/Counter';
 
 function App() {
@@ -10,7 +12,8 @@ function App() {
   ];
   return (
     <>
-      <Effects/>
+      {/* <FetchData/> */}
+      <CleanupFunction/>
     </>
   )
 }
