@@ -6,6 +6,7 @@ export default function Effects() {
     const info = document.getElementById("info");
     const [tries, setTries] = useState(0);
     const [randomNumber, setRandomNumber] = useState(-1);
+    const [gameDisplay, setGameDisplay] = useState("none");
 
     const startGame = () => {
         setRandomNumber(Math.ceil(Math.random() * 100));
@@ -19,6 +20,7 @@ export default function Effects() {
         () => {
             if (randomNumber != -1){
                 info.textContent = "თამაში დაიწყო"
+                setGameDisplay("block");
             }
         },
         [randomNumber]
@@ -47,9 +49,11 @@ export default function Effects() {
         <div>
             <button onClick={startGame}>თამაშის დაწყება</button>
             <p id={"info"}></p>
-            <input type={"number"} id={"guess"}></input>
-            <button onClick={checkAnswer}>დაფიქსირება</button>
-            <p>ცდების რაოდენობა: {tries}</p>
+            <div id={"game"} style={{"display": gameDisplay}}>
+                <input type={"number"} id={"guess"}></input>
+                <button onClick={checkAnswer}>დაფიქსირება</button>
+                <p>ცდების რაოდენობა: {tries}</p>
+            </div>
         </div>
     )
 }
