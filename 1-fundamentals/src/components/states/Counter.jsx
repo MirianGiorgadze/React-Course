@@ -22,7 +22,7 @@ function Counter() {
   );
 
   useEffect(
-    () => {console.log("Count value changed!")},
+    () => {console.log("Initialized!")},
     []
   );
 
