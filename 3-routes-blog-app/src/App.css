@@ -1,0 +1,262 @@
+/* src/App.css */
+.App main {
+  flex-grow: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Header Styles */
+.header-nav {
+  background-color: #2c3e50;
+  padding: 15px 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.header-nav .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.header-nav .brand-link {
+  color: #ecf0f1;
+  font-size: 24px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.header-nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  gap: 30px;
+}
+
+.header-nav li a {
+  color: #ecf0f1;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.header-nav li a:hover {
+  color: #3498db;
+}
+
+/* Common Card Styles */
+.card-container {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  padding: 30px;
+}
+
+/* Home Page */
+.home-page {
+  text-align: center;
+  padding: 80px 20px;
+}
+
+.home-page h1 {
+  font-size: 48px;
+  color: #2c3e50;
+  margin-bottom: 20px;
+}
+
+.home-page p {
+  font-size: 20px;
+  color: #555;
+  line-height: 1.6;
+}
+
+/* About Page */
+.about-page h1 {
+  font-size: 36px;
+  color: #2c3e50;
+  margin-bottom: 20px;
+}
+
+.about-page p {
+  font-size: 18px;
+  color: #666;
+  line-height: 1.8;
+  margin-bottom: 15px;
+}
+
+/* Not Found Page */
+.not-found-page {
+  text-align: center;
+  padding: 80px 20px;
+}
+
+.not-found-page h1 {
+  font-size: 96px;
+  color: #e74c3c;
+  margin-bottom: 10px;
+  line-height: 1;
+}
+
+.not-found-page h2 {
+  font-size: 36px;
+  color: #2c3e50;
+  margin-bottom: 15px;
+}
+
+.not-found-page p {
+  font-size: 20px;
+  color: #666;
+  margin-bottom: 30px;
+}
+
+.not-found-page .back-link {
+  display: inline-block;
+  background-color: #3498db;
+  color: #fff;
+  padding: 12px 25px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.not-found-page .back-link:hover {
+  background-color: #2980b9;
+}
+
+/* Posts Layout (for Nested Routes) */
+.posts-layout-container {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+@media (min-width: 768px) {
+  .posts-layout-container {
+    flex-direction: row;
+  }
+  .posts-layout-container .sidebar {
+    flex: 0 0 250px; /* Fixed width sidebar */
+  }
+  .posts-layout-container .content-area {
+    flex-grow: 1;
+  }
+}
+
+.posts-layout-container .sidebar {
+  background-color: #fff;
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.posts-layout-container .sidebar h2 {
+  font-size: 24px;
+  color: #2c3e50;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 10px;
+}
+
+.posts-layout-container .sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.posts-layout-container .sidebar li {
+  margin-bottom: 10px;
+}
+
+.posts-layout-container .sidebar a {
+  color: #3498db;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.posts-layout-container .sidebar a:hover {
+  color: #2980b9;
+  text-decoration: underline;
+}
+
+/* Post List */
+.post-list h2 {
+  font-size: 32px;
+  color: #2c3e50;
+  margin-bottom: 25px;
+}
+
+.post-list ul {
+  list-style: none;
+  padding: 0;
+}
+
+.post-list li {
+  border-bottom: 1px solid #eee;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+}
+
+.post-list li:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.post-list li a {
+  display: block;
+  text-decoration: none;
+  color: #333;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.post-list li a:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+}
+
+.post-list h3 {
+  font-size: 24px;
+  color: #3498db;
+  margin-bottom: 5px;
+}
+
+.post-list p {
+  font-size: 16px;
+  color: #666;
+  line-height: 1.5;
+}
+
+/* Post Detail */
+.post-detail h1 {
+  font-size: 40px;
+  color: #2c3e50;
+  margin-bottom: 20px;
+}
+
+.post-detail p {
+  font-size: 18px;
+  color: #555;
+  line-height: 1.8;
+  margin-bottom: 30px;
+}
+
+.post-detail .back-link {
+  display: inline-block;
+  background-color: #3498db;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.post-detail .back-link:hover {
+  background-color: #2980b9;
+}
