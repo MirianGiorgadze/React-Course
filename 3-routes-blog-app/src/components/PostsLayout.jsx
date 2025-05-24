@@ -7,7 +7,6 @@ function PostsLayout() {
       <nav className="sidebar">
         <h2>კატეგორიები</h2>
         <ul>
-          <li><a href="#">ყველა პოსტი</a></li>
           <li><a href="#">ტექნოლოგია</a></li>
           <li><a href="#">პროგრამირება</a></li>
         </ul>
