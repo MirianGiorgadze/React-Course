@@ -3,25 +3,25 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './components/Home';
 import About from './components/About';
 import NotFound from './components/NotFound';
-import Header from './components/Header';
+import Header from './components/Header'; // Header ახლა მოიცავს გადამრთველებს და FocusInput-ს
 import PostsLayout from './components/PostsLayout';
 import PostDetail from './components/PostDetail';
 import PostList from './components/PostList';
 
-import ThemeSwitcher from './components/ThemeSwitcher'; // useContext-ის მაგალითი
-import LanguageSwitcher from './components/LanguageSwitcher'; // useContext-ის მაგალითი
-import FocusInput from './components/FocusInput'; // useRef-ის ახალი, მარტივი მაგალითი
+// ThemeSwitcher, LanguageSwitcher, FocusInput აღარ იმპორტირდება აქ, რადგან ისინი Header-ში გადავიდნენ
+// import ThemeSwitcher from './components/ThemeSwitcher';
+// import LanguageSwitcher from './components/LanguageSwitcher';
+// import FocusInput from './components/FocusInput';
 
-import { ThemeContext } from './contexts/ThemeContext'; // თემის კონტექსტი
-import { LanguageContext } from './contexts/LanguageContext'; // ენის კონტექსტი
+import { ThemeContext } from './contexts/ThemeContext';
+import { LanguageContext } from './contexts/LanguageContext';
 
-import './App.css'; // აპლიკაციის ძირითადი სტილები
+import './App.css';
 
 function App() {
   const [theme, setTheme] = useState('light');
-  const [language, setLanguage] = useState('ka'); // 'ka' ქართულისთვის, 'en' ინგლისურისთვის
+  const [language, setLanguage] = useState('ka');
 
-  // CSS კლასის დამატება body-ზე თემის შესაცვლელად
   document.body.className = theme === 'dark' ? 'dark-theme' : '';
 
   const toggleTheme = () => {
@@ -32,15 +32,14 @@ function App() {
     setLanguage((prevLang) => (prevLang === 'ka' ? 'en' : 'ka'));
   };
 
-  // ლოკალიზებული ტექსტები
   const translations = {
     ka: {
-      blogTitle: "ჩემი ბლოგი", 
-      home: "მთავარი",        
+      blogTitle: "ჩემი ბლოგი",
+      home: "მთავარი",
       welcome: "კეთილი იყოს თქვენი მობრძანება ჩვენს ბლოგზე!",
       explore: "გამოიკვლიეთ ჩვენი უახლესი სტატიები და სიახლეები.",
       aboutUs: "ჩვენს შესახებ",
-      aboutText: "ეს არის მინიმალისტური ბლოგის აპლიკაცია, რომელიც შექმნილია React-ით, Vite-ით და React Router-ით. პროექტის მიზანია დემონსტრაცია გაუკეთოს React Router-ის, useRef-ის და useContext-ის შესაძლებლობებს, რათა აპლიკაციის სტრუქტურა იყოს ორგანიზებული, მასშტაბირებადი და მოქნილი.",
+      aboutText: "ეს არის მინიმალისტური ბლოგის აპლიკაცია, რომელიც შექმნილია React-ით, Vite-ით და React Router-ით. პროექტის მიზანია დემონსტრაცია გაუკეთოს React Router-ის და useContext-ის შესაძლებლობებს, რათა აპლიკაციის სტრუქტურა იყოს ორგანიზებული, მასშტაბირებადი და მოქნილი.",
       enjoy: "გისურვებთ სასიამოვნო დროის გატარებას!",
       notFoundTitle: "გვერდი ვერ მოიძებნა",
       notFoundMessage: "ბოდიში, მოძებნილი გვერდი არ არსებობს.",
@@ -59,8 +58,8 @@ function App() {
       dark: "ბნელი",
       georgian: "ქართული",
       english: "ინგლისური",
-      focusInput: "ფოკუსირება ინფუთზე", // ახალი ლოკალიზაცია
-      enterText: "ჩაწერეთ ტექსტი..." // ახალი ლოკალიზაცია
+      focusInput: "ფოკუსირება ინფუთზე",
+      enterText: "ჩაწერეთ ტექსტი..."
     },
     en: {
       blogTitle: "My Blog",
@@ -92,40 +91,21 @@ function App() {
     }
   };
 
-  const t = translations[language]; // მიმდინარე ენის ლოკალიზებული ტექსტები
+  const t = translations[language];
 
 
   return (
     <BrowserRouter>
-      {/* ThemeContext-ის მიწოდება: თემა და ლოკალიზებული ტექსტები */}
       <ThemeContext.Provider value={{ theme, toggleTheme, t }}>
-        {/* LanguageContext-ის მიწოდება: ენა და ლოკალიზებული ტექსტები */}
         <LanguageContext.Provider value={{ language, toggleLanguage, t }}>
           <div className="App">
-            <Header />
+            <Header /> {/* Header ახლა მოიცავს გადამრთველებს და FocusInput-ს */}
             <main>
-              {/* კონტექსტის გადამრთველები და useRef-ის მაგალითი ერთ სექციაში */}
-              <section className="feature-section card-container">
-                <h2>{t.language}: {language === 'ka' ? t.georgian : t.english} | {t.theme}: {theme === 'light' ? t.light : t.dark}</h2>
-                <div className="flex-container">
-                  <div className="flex-item">
-                    <ThemeSwitcher /> {/* თემის გადამრთველი useContext-ით */}
-                  </div>
-                  <div className="flex-item">
-                    <LanguageSwitcher /> {/* ენის გადამრთველი useContext-ით */}
-                  </div>
-                  <div className="flex-item">
-                    <FocusInput /> {/* useRef-ის მარტივი მაგალითი */}
-                  </div>
-                </div>
-              </section>
-
+              {/* feature-section ამოღებულია აქედან */}
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/about" element={<About />} />
-                {/* შესვლის გვერდი ამოღებულია */}
                 
-                {/* Nested Routes - მშობელი Route for /posts */}
                 <Route path="/posts" element={<PostsLayout />}>
                   <Route index element={<PostList />} /> 
                   <Route path=":id" element={<PostDetail />} /> 

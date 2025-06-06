@@ -4,12 +4,15 @@ import { LanguageContext } from '../contexts/LanguageContext';
 function FocusInput() {
   // ვქმნით რეფერენსს input ელემენტისთვის
   const inputRef = useRef(null);
-  const { t } = useContext(LanguageContext);
+  const { t } = useContext(LanguageContext); // კონტექსტიდან ლოკალიზებული ტექსტების მიღება
 
   // useEffect ჰუკი კომპონენტის დამონტაჟებისას (პირველ რენდერზე) input-ზე ფოკუსირებისთვის
+  // ამ კონკრეტულ მაგალითში ავტომატური ფოკუსირება გამორთულია.
   useEffect(() => {
-    // შეგიძლიათ აქ დაამატოთ ავტომატური ფოკუსირება, თუ გინდათ
-    // inputRef.current.focus();
+    // თუ გინდათ, რომ ავტომატურად იყოს ფოკუსირებული გვერდის ჩატვირთვისას, მოხსენით კომენტარი:
+    // if (inputRef.current) {
+    //   inputRef.current.focus();
+    // }
   }, []); // ცარიელი მასივი ნიშნავს, რომ ეს ეფექტი მხოლოდ ერთხელ გაეშვება
 
   const handleFocusClick = () => {
