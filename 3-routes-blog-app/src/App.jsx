@@ -1,35 +1,142 @@
+import { useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import './App.css'; // აპლიკაციის ძირითადი სტილები
 import Home from './components/Home';
 import About from './components/About';
-import PostsLayout from './components/PostsLayout';
-import PostList from './components/PostList';
-import PostDetail from './components/PostDetail';
 import NotFound from './components/NotFound';
 import Header from './components/Header';
+import PostsLayout from './components/PostsLayout';
+import PostDetail from './components/PostDetail';
+import PostList from './components/PostList';
+
+import ThemeSwitcher from './components/ThemeSwitcher'; // useContext-ის მაგალითი
+import LanguageSwitcher from './components/LanguageSwitcher'; // useContext-ის მაგალითი
+import FocusInput from './components/FocusInput'; // useRef-ის ახალი, მარტივი მაგალითი
+
+import { ThemeContext } from './contexts/ThemeContext'; // თემის კონტექსტი
+import { LanguageContext } from './contexts/LanguageContext'; // ენის კონტექსტი
+
+import './App.css'; // აპლიკაციის ძირითადი სტილები
 
 function App() {
+  const [theme, setTheme] = useState('light');
+  const [language, setLanguage] = useState('ka'); // 'ka' ქართულისთვის, 'en' ინგლისურისთვის
+
+  // CSS კლასის დამატება body-ზე თემის შესაცვლელად
+  document.body.className = theme === 'dark' ? 'dark-theme' : '';
+
+  const toggleTheme = () => {
+    setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
+  };
+
+  const toggleLanguage = () => {
+    setLanguage((prevLang) => (prevLang === 'ka' ? 'en' : 'ka'));
+  };
+
+  // ლოკალიზებული ტექსტები
+  const translations = {
+    ka: {
+      blogTitle: "ჩემი ბლოგი", 
+      home: "მთავარი",        
+      welcome: "კეთილი იყოს თქვენი მობრძანება ჩვენს ბლოგზე!",
+      explore: "გამოიკვლიეთ ჩვენი უახლესი სტატიები და სიახლეები.",
+      aboutUs: "ჩვენს შესახებ",
+      aboutText: "ეს არის მინიმალისტური ბლოგის აპლიკაცია, რომელიც შექმნილია React-ით, Vite-ით და React Router-ით. პროექტის მიზანია დემონსტრაცია გაუკეთოს React Router-ის, useRef-ის და useContext-ის შესაძლებლობებს, რათა აპლიკაციის სტრუქტურა იყოს ორგანიზებული, მასშტაბირებადი და მოქნილი.",
+      enjoy: "გისურვებთ სასიამოვნო დროის გატარებას!",
+      notFoundTitle: "გვერდი ვერ მოიძებნა",
+      notFoundMessage: "ბოდიში, მოძებნილი გვერდი არ არსებობს.",
+      backToHome: "მთავარ გვერდზე დაბრუნება",
+      latestPosts: "ბოლო პოსტები",
+      backToList: "უკან პოსტების სიაში",
+      categories: "კატეგორიები",
+      allPosts: "ყველა პოსტი",
+      technology: "ტექნოლოგია",
+      programming: "პროგრამირება",
+      postNotFound: "პოსტი ვერ მოიძებნა",
+      postNotFoundMessage: "ბოდიში, ასეთი პოსტი არ არსებობს.",
+      theme: "თემა",
+      language: "ენა",
+      light: "ნათელი",
+      dark: "ბნელი",
+      georgian: "ქართული",
+      english: "ინგლისური",
+      focusInput: "ფოკუსირება ინფუთზე", // ახალი ლოკალიზაცია
+      enterText: "ჩაწერეთ ტექსტი..." // ახალი ლოკალიზაცია
+    },
+    en: {
+      blogTitle: "My Blog",
+      home: "Home",
+      welcome: "Welcome to our blog!",
+      explore: "Explore our latest articles and news.",
+      aboutUs: "About Us",
+      aboutText: "This is a minimalist blog application built with React, Vite, and React Router. The project aims to demonstrate the capabilities of React Router, useRef, and useContext, ensuring an organized, scalable, and flexible application structure.",
+      enjoy: "We wish you a pleasant time!",
+      notFoundTitle: "Page Not Found",
+      notFoundMessage: "Sorry, the page you are looking for does not exist.",
+      backToHome: "Back to Home",
+      latestPosts: "Latest Posts",
+      backToList: "Back to Post List",
+      categories: "Categories",
+      allPosts: "All Posts",
+      technology: "Technology",
+      programming: "Programming",
+      postNotFound: "Post Not Found",
+      postNotFoundMessage: "Sorry, such a post does not exist.",
+      theme: "Theme",
+      language: "Language",
+      light: "Light",
+      dark: "Dark",
+      georgian: "Georgian",
+      english: "English",
+      focusInput: "Focus Input",
+      enterText: "Enter text..."
+    }
+  };
+
+  const t = translations[language]; // მიმდინარე ენის ლოკალიზებული ტექსტები
+
+
   return (
     <BrowserRouter>
-      <div className="App">
-        <Header />
-        <main>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            
-            {/* Nested Routes - მშობელი Route for /posts */}
-            <Route path="/posts" element={<PostsLayout />}>
-              {/* index route for /posts - default child component */}
-              <Route index element={<PostList />} /> 
-              {/* Nested Route for /posts/:id */}
-              <Route path=":id" element={<PostDetail />} /> 
-            </Route>
+      {/* ThemeContext-ის მიწოდება: თემა და ლოკალიზებული ტექსტები */}
+      <ThemeContext.Provider value={{ theme, toggleTheme, t }}>
+        {/* LanguageContext-ის მიწოდება: ენა და ლოკალიზებული ტექსტები */}
+        <LanguageContext.Provider value={{ language, toggleLanguage, t }}>
+          <div className="App">
+            <Header />
+            <main>
+              {/* კონტექსტის გადამრთველები და useRef-ის მაგალითი ერთ სექციაში */}
+              <section className="feature-section card-container">
+                <h2>{t.language}: {language === 'ka' ? t.georgian : t.english} | {t.theme}: {theme === 'light' ? t.light : t.dark}</h2>
+                <div className="flex-container">
+                  <div className="flex-item">
+                    <ThemeSwitcher /> {/* თემის გადამრთველი useContext-ით */}
+                  </div>
+                  <div className="flex-item">
+                    <LanguageSwitcher /> {/* ენის გადამრთველი useContext-ით */}
+                  </div>
+                  <div className="flex-item">
+                    <FocusInput /> {/* useRef-ის მარტივი მაგალითი */}
+                  </div>
+                </div>
+              </section>
 
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </main>
-      </div>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/about" element={<About />} />
+                {/* შესვლის გვერდი ამოღებულია */}
+                
+                {/* Nested Routes - მშობელი Route for /posts */}
+                <Route path="/posts" element={<PostsLayout />}>
+                  <Route index element={<PostList />} /> 
+                  <Route path=":id" element={<PostDetail />} /> 
+                </Route>
+
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </main>
+          </div>
+        </LanguageContext.Provider>
+      </ThemeContext.Provider>
     </BrowserRouter>
   );
 }

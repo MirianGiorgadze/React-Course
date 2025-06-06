@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import { LanguageContext } from '../contexts/LanguageContext';
 
-// იმიტირებული მონაცემები
+// იმიტირებული მონაცემები (შეგიძლიათ გადათარგმნოთ ან ცალკე ობიექტში გქონდეთ)
 const posts = [
   { id: 1, title: 'React Router v6-ის სიახლეები', excerpt: 'გაიგეთ უახლესი ცვლილებების შესახებ React Router-ის მე-6 ვერსიაში.' },
   { id: 2, title: 'რა არის CSS-ის საფუძვლები?', excerpt: 'როგორ მოვაწყოთ სტილები ჩვენი ვებ-გვერდებისთვის.' },
@@ -9,9 +11,11 @@ const posts = [
 ];
 
 function PostList() {
+  const { t } = useContext(LanguageContext);
+
   return (
     <div className="post-list card-container">
-      <h2>ბოლო პოსტები</h2>
+      <h2>{t.latestPosts}</h2>
       <ul>
         {posts.map(post => (
           <li key={post.id}>

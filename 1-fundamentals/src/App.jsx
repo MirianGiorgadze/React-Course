@@ -1,12 +1,11 @@
 import './App.css'
 import CleanupFunction from './components/effects/CleanupFunction'
-import NoCleanupExample from './components/effects/NoCleanUpExample'
+import Counter from './components/states/Counter'
 
 function App() {
   return (
     <>
-      <CleanupFunction/>
-      <NoCleanupExample/>
+      <Counter/>
     </>
   )
 }

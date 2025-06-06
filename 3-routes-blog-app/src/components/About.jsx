@@ -1,13 +1,14 @@
+import { useContext } from 'react';
+import { LanguageContext } from '../contexts/LanguageContext';
+
 function About() {
+  const { t } = useContext(LanguageContext);
+
   return (
     <div className="about-page card-container">
-      <h1>ჩვენს შესახებ</h1>
-      <p>
-        ეს არის მინიმალისტური ბლოგის აპლიკაცია, რომელიც შექმნილია React-ით, Vite-ით და React Router-ით. 
-        პროექტის მიზანია დემონსტრაცია გაუკეთოს React Router-ის შესაძლებლობებს, 
-        განსაკუთრებით Nested Routes-ის კონცეფციას, რათა აპლიკაციის სტრუქტურა იყოს ორგანიზებული და მასშტაბირებადი.
-      </p>
-      <p>გისურვებთ სასიამოვნო დროის გატარებას!</p>
+      <h1>{t.aboutUs}</h1>
+      <p>{t.aboutText}</p>
+      <p>{t.enjoy}</p>
     </div>
   );
 }

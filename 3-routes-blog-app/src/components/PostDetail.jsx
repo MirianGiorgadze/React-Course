@@ -1,4 +1,6 @@
 import { useParams, Link } from 'react-router-dom';
+import { useContext } from 'react';
+import { LanguageContext } from '../contexts/LanguageContext';
 
 // იმიტირებული მონაცემები
 const posts = [
@@ -11,14 +13,15 @@ const posts = [
 function PostDetail() {
   const { id } = useParams(); // Nested Route-ის პარამეტრის მიღება
   const post = posts.find(p => p.id === parseInt(id));
+  const { t } = useContext(LanguageContext);
 
   if (!post) {
     return (
       <div className="post-detail card-container not-found-post">
-        <h2>პოსტი ვერ მოიძებნა</h2>
-        <p>ბოდიში, ასეთი პოსტი არ არსებობს.</p>
+        <h2>{t.postNotFound}</h2>
+        <p>{t.postNotFoundMessage}</p>
         <Link to="/posts" className="back-link">
-          უკან პოსტების სიაში
+          {t.backToList}
         </Link>
       </div>
     );
@@ -29,7 +32,7 @@ function PostDetail() {
       <h1>{post.title}</h1>
       <p>{post.content}</p>
       <Link to="/posts" className="back-link">
-        უკან პოსტების სიაში
+        {t.backToList}
       </Link>
     </div>
   );

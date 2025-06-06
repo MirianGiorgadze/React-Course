@@ -227,28 +227,168 @@
 
 ---
 
-## 4. პროექტის გაშვება და შემოწმება
+---
 
-1.  **დარწმუნდით, რომ ყველა დამოკიდებულება დაინსტალირებულია:**
-    ```bash
-    npm install
+## 4. `useRef` Hook: DOM ელემენტებზე პირდაპირი წვდომა
+
+React-ში, როგორც წესი, მომხმარებლის ინტერფეისის (UI) განახლებას **მდგომარეობის (State) მართვით** ვახორციელებთ. თუმცა, ზოგჯერ გვჭირდება **პირდაპირი წვდომა** დოკუმენტის ობიექტურ მოდელზე (DOM) ან რაიმე ცვლადის შენახვა, რომელიც **არ გამოიწვევს კომპონენტის განმეორებით რენდერირებას** (re-render) მისი შეცვლისას. სწორედ აქ შემოდის **`useRef`** ჰუკი.
+
+**რისთვის გამოიყენება `useRef`?**
+
+1.  **DOM ელემენტებზე წვდომა:** მისი ყველაზე გავრცელებული გამოყენებაა, როცა გვინდა კონკრეტულ HTML ელემენტზე (მაგალითად, `<input>`, `<button>`, `<video>`) პირდაპირი წვდომა, რომ შევცვალოთ მისი თვისებები, გამოვიძახოთ მეთოდები (მაგალითად, `focus()`, `play()`) ან გავზომოთ მისი ზომა/პოზიცია.
+2.  **ცვლადის შენახვა, რომელიც არ გამოიწვევს Re-render-ს:** `useRef`-ის საშუალებით შეგვიძლია შევინახოთ ნებისმიერი ცვლადი (ობიექტი, რიცხვი, სტრიქონი), რომლის ცვლილებაც არ გვინდა კომპონენტის განმეორებით რენდერირებას იწვევდეს. ეს სასარგებლოა ისეთი მონაცემებისთვის, რომლებიც არ არის UI-ის ნაწილი, მაგრამ საჭიროა კომპონენტის სიცოცხლის ციკლის განმავლობაში.
+
+**როგორ მუშაობს `useRef`?**
+
+`useRef()` ბრუნებს **ცვალებად (mutable) ობიექტს**, რომელსაც აქვს ერთი თვისება: **`.current`**. ეს `.current` თვისება თავდაპირველად ინიციალიზდება იმ მნიშვნელობით, რომელსაც `useRef()`-ს გადავცემთ არგუმენტად.
+
+* **DOM ელემენტისთვის:** როდესაც `useRef()`-ით შექმნილ რეფერენსს მივანიჭებთ JSX ელემენტის `ref` ატრიბუტს, React ავტომატურად ჩაწერს ამ DOM ელემენტის ინსტანციას `.current` თვისებაში, როდესაც კომპონენტი დამონტაჟდება (mounted).
+* **ზოგადი ცვლადისთვის:** თუ არ უკავშირებთ `ref`-ს DOM ელემენტს, შეგიძლიათ უბრალოდ გამოიყენოთ `.current` თვისება თქვენი მონაცემების შესანახად და განახლებისთვის.
+
+**მაგალითი პროექტში (`FocusInput.jsx`):**
+
+ჩვენ შევქმენით მარტივი კომპონენტი, რომელიც აჩვენებს `useRef`-ის გამოყენებას ინფუთ ველზე ფოკუსირებისთვის ღილაკზე დაჭერით.
+
+1.  **`src/components/FocusInput.jsx`:**
+    ```jsx
+    // src/components/FocusInput.jsx
+    import { useRef, useEffect, useContext } from 'react';
+    import { LanguageContext } from '../contexts/LanguageContext';
+
+    function FocusInput() {
+      // ვქმნით რეფერენსს input ელემენტისთვის. null არის საწყისი მნიშვნელობა.
+      const inputRef = useRef(null);
+      const { t } = useContext(LanguageContext); // ლოკალიზებული ტექსტების მიღება კონტექსტიდან
+
+      // useEffect ჰუკი შეიძლება გამოყენებულ იქნას კომპონენტის დამონტაჟებისას (პირველ რენდერზე)
+      // კონკრეტულ ელემენტზე ფოკუსირებისთვის, თუ ეს საჭიროა.
+      // ამ მაგალითში, ფოკუსირება ხდება ღილაკზე დაჭერით.
+      useEffect(() => {
+        // მაგალითად, თუ გვინდოდა ავტომატური ფოკუსირება გვერდის ჩატვირთვისას:
+        // if (inputRef.current) {
+        //   inputRef.current.focus();
+        // }
+      }, []); // ცარიელი მასივი ნიშნავს, რომ ეს ეფექტი მხოლოდ ერთხელ გაეშვება
+
+      const handleFocusClick = () => {
+        // ღილაკზე დაჭერისას input-ზე ფოკუსირება useRef-ის გამოყენებით
+        if (inputRef.current) {
+          inputRef.current.focus();
+          inputRef.current.style.backgroundColor = '#e0f7fa'; // ვიზუალური ეფექტი
+        }
+      };
+
+      const handleBlur = () => {
+        // input-დან ფოკუსის მოხსნისას ფონის ფერის სტანდარტულზე დაბრუნება
+        if (inputRef.current) {
+          inputRef.current.style.backgroundColor = '';
+        }
+      };
+
+      return (
+        <div className="focus-input-container">
+          <h3>useRef მაგალითი</h3>
+          <input
+            type="text"
+            ref={inputRef} // `ref` ატრიბუტით ვუკავშირებთ useRef-ს
+            placeholder={t.enterText} // ლოკალიზებული Placeholder ტექსტი
+            onBlur={handleBlur} // onBlur ივენთის დამუშავება სტილის მოსახსნელად
+          />
+          <button onClick={handleFocusClick}>{t.focusInput}</button>
+        </div>
+      );
+    }
+
+    export default FocusInput;
+    ```
+    ამ მაგალითში, `inputRef.current` მოგვცემს პირდაპირ წვდომას `<input type="text">` DOM ელემენტზე, რაც საშუალებას გვაძლევს გამოვიძახოთ მისი `focus()` მეთოდი ღილაკზე დაჭერისას.
+
+## 5. `useContext` Hook: მდგომარეობის გაზიარება კომპონენტებს შორის
+
+React-ში მონაცემების გადაცემა მშობელი კომპონენტიდან შვილზე ხდება **props**-ის საშუალებით. თუმცა, თუ გვაქვს ბევრი შვილობილი კომპონენტი და გვინდა მონაცემების გადაცემა ღრმად ჩადგმულ კომპონენტებზე (ე.წ. "Prop Drilling"), კოდი ხდება რთული და ნაკლებად წასაკითხი. **`useContext`** ჰუკი React-ის **Context API**-სთან ერთად გვთავაზობს ამ პრობლემის გადაჭრის გზას.
+
+**რისთვის გამოიყენება `useContext`?**
+
+`useContext` საშუალებას აძლევს კომპონენტებს, მიიღონ წვდომა **გლობალურად გაზიარებულ მდგომარეობაზე** (Global State) ან მონაცემებზე, ისე რომ არ მოხდეს მათი ხელით გადაცემა props-ის სახით ყოველ დონეზე. ეს იდეალურია ისეთი მონაცემებისთვის, რომლებიც აპლიკაციის ბევრ ნაწილს სჭირდება, მაგალითად:
+
+* **თემა (Theme):** ღია/ბნელი თემა.
+* **ენა (Language):** აპლიკაციის ენა.
+* **მომხმარებლის აუთენტიკაცია:** მომხმარებლის ინფორმაცია, შესვლის სტატუსი.
+
+**როგორ მუშაობს `useContext`?**
+
+`useContext`-ის გამოყენება მოითხოვს 3 ძირითად ნაბიჯს:
+
+1.  **კონტექსტის შექმნა (`createContext`):** იქმნება კონტექსტის ობიექტი `React.createContext()` მეთოდით.
+    ```jsx
+    // src/contexts/ThemeContext.jsx
+    import { createContext } from 'react';
+    export const ThemeContext = createContext({ theme: 'light', toggleTheme: () => {} });
+    ```
+    ```jsx
+    // src/contexts/LanguageContext.jsx
+    import { createContext } from 'react';
+    export const LanguageContext = createContext({ language: 'ka', toggleLanguage: () => {}, t: {} });
     ```
 
-2.  **გაუშვით განვითარების სერვერი:**
-    ```bash
-    npm run dev
+2.  **კონტექსტის მიწოდება (`.Provider`):** კონტექსტის ობიექტს აქვს `.Provider` კომპონენტი, რომელიც გარს ერტყმის თქვენი აპლიკაციის იმ ნაწილს, სადაც გსურთ ამ კონტექსტის მონაცემების ხელმისაწვდომობა. `value` თვისებით გადასცემთ მონაცემებს, რომელთა გაზიარებაც გსურთ.
+
+    ```jsx
+    // src/App.jsx-ის ნაწილი
+    import { ThemeContext } from './contexts/ThemeContext';
+    import { LanguageContext } from './contexts/LanguageContext';
+
+    function App() {
+      const [theme, setTheme] = useState('light');
+      const [language, setLanguage] = useState('ka');
+      const translations = { /* ... ლოკალიზებული ტექსტები ... */ };
+      const t = translations[language];
+
+      const toggleTheme = () => { /* ... */ };
+      const toggleLanguage = () => { /* ... */ };
+
+      return (
+        <BrowserRouter>
+          {/* ThemeContext-ის მიწოდება */}
+          <ThemeContext.Provider value={{ theme, toggleTheme, t }}>
+            {/* LanguageContext-ის მიწოდება */}
+            <LanguageContext.Provider value={{ language, toggleLanguage, t }}>
+              <div className="App">
+                {/* ... აპლიკაციის დანარჩენი ნაწილი */}
+              </div>
+            </LanguageContext.Provider>
+          </ThemeContext.Provider>
+        </BrowserRouter>
+      );
+    }
     ```
+    აქ `App` კომპონენტი აწვდის `theme`, `toggleTheme`, `language`, `toggleLanguage` და `t` (translations) მნიშვნელობებს თავის შვილობილ კომპონენტებს.
 
-3.  **გახსენით ბრაუზერში:**
-    გადადით `http://localhost:5173/` (ან თქვენი კონსოლის მიერ მითითებულ მისამართზე).
+3.  **კონტექსტის მოხმარება (`useContext`):** ნებისმიერ კომპონენტს, რომელიც მოთავსებულია `.Provider`-ის შიგნით, შეუძლია გამოიყენოს `useContext(MyContext)` ჰუკი, რათა მიიღოს წვდომა ამ კონტექსტის `value` თვისებაზე.
 
-**შეამოწმეთ შემდეგი გვერდები:**
+    ```jsx
+    // src/components/ThemeSwitcher.jsx
+    import { useContext } from 'react';
+    import { ThemeContext } from '../contexts/ThemeContext'; // კონტექსტის იმპორტი
 
-* **`/` (მთავარი გვერდი):** უნდა ნახოთ მისალმება.
-* **`/posts` (პოსტების სია):** უნდა ნახოთ პოსტების სია (ეს არის `PostList` კომპონენტი `PostsLayout`-ის შიგნით).
-* **`/posts/1` (კონკრეტული პოსტი):** უნდა ნახოთ პირველი პოსტის დეტალები. სცადეთ სხვა ID-ებიც (2, 3, 4).
-* **`/about` (ჩვენს შესახებ):** უნდა ნახოთ ინფორმაცია ბლოგის შესახებ.
-* **`/non-existent-page` (არარსებული გვერდი):** უნდა ნახოთ 404 გვერდი.
+    function ThemeSwitcher() {
+      // ვიღებთ მნიშვნელობებს ThemeContext-დან
+      const { theme, toggleTheme, t } = useContext(ThemeContext); 
+
+      return (
+        <div className="theme-switcher">
+          <span>{t.theme}: <span className="current-setting">{theme === 'light' ? t.light : t.dark}</span></span>
+          <button onClick={toggleTheme}>
+            {theme === 'light' ? t.dark : t.light} {t.theme}
+          </button>
+        </div>
+      );
+    }
+    export default ThemeSwitcher;
+    ```
+    `LanguageSwitcher` და `Header`, `Home`, `About`, `PostList`, `PostDetail`, `PostsLayout` კომპონენტებიც ანალოგიურად იყენებენ `LanguageContext`-ს ლოკალიზებული ტექსტების მისაღებად.
+
+`useContext` მნიშვნელოვნად ამარტივებს მონაცემთა ნაკადს კომპლექსურ აპლიკაციებში და ხელს უწყობს კოდის სისუფთავესა და მოვლას.
 
 # React + Vite
 

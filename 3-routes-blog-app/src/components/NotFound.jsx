@@ -1,13 +1,17 @@
 import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import { LanguageContext } from '../contexts/LanguageContext';
 
 function NotFound() {
+  const { t } = useContext(LanguageContext);
+
   return (
     <div className="not-found-page card-container">
       <h1>404</h1>
-      <h2>გვერდი ვერ მოიძებნა</h2>
-      <p>ბოდიში, მოძებნილი გვერდი არ არსებობს.</p>
+      <h2>{t.notFoundTitle}</h2>
+      <p>{t.notFoundMessage}</p>
       <Link to="/" className="back-link">
-        მთავარ გვერდზე დაბრუნება
+        {t.backToHome}
       </Link>
     </div>
   );
