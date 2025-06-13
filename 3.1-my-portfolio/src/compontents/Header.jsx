@@ -12,6 +12,9 @@ function Header() {
           <li>
             <Link to="/about">ჩემს შესახებ</Link>
           </li>
+          <li>
+            <Link to="/followus">გამოგვყევი</Link>
+          </li>
         </ul>
       </div>
     </nav>

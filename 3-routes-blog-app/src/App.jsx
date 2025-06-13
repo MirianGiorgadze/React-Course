@@ -7,6 +7,8 @@ import Header from './components/Header'; // Header ახლა მოიცა
 import PostsLayout from './components/PostsLayout';
 import PostDetail from './components/PostDetail';
 import PostList from './components/PostList';
+import MemoCounter from './components/MemoCounter';
+import ContactForm from './components/ContactForm';
 
 // ThemeSwitcher, LanguageSwitcher, FocusInput აღარ იმპორტირდება აქ, რადგან ისინი Header-ში გადავიდნენ
 // import ThemeSwitcher from './components/ThemeSwitcher';
@@ -59,7 +61,8 @@ function App() {
       georgian: "ქართული",
       english: "ინგლისური",
       focusInput: "ფოკუსირება ინფუთზე",
-      enterText: "ჩაწერეთ ტექსტი..."
+      enterText: "ჩაწერეთ ტექსტი...",
+      contact: "კონტაქტი"
     },
     en: {
       blogTitle: "My Blog",
@@ -87,7 +90,8 @@ function App() {
       georgian: "Georgian",
       english: "English",
       focusInput: "Focus Input",
-      enterText: "Enter text..."
+      enterText: "Enter text...",
+      contact: "Contact"
     }
   };
 
@@ -112,6 +116,8 @@ function App() {
                 </Route>
 
                 <Route path="*" element={<NotFound />} />
+                <Route path="/memo" element={<MemoCounter />} />
+                <Route path="/contact" element={<ContactForm />} />
               </Routes>
             </main>
           </div>

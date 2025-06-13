@@ -19,7 +19,8 @@ function FocusInput() {
     // ღილაკზე დაჭერისას input-ზე ფოკუსირება useRef-ის გამოყენებით
     if (inputRef.current) {
       inputRef.current.focus();
-      inputRef.current.style.backgroundColor = '#e0f7fa'; // ვიზუალური ეფექტი
+      inputRef.current.style.backgroundColor = '#e0f7fa';
+      alert("შენი ინფუთის მნიშვნელობა იყო " + inputRef.current.value);// ვიზუალური ეფექტი
     }
   };
 

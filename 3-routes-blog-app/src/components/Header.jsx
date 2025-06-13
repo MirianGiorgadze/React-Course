@@ -23,6 +23,9 @@ function Header() {
             <li>
               <Link to="/about">{t.aboutUs}</Link>
             </li>
+            <li>
+              <Link to="/contact">{t.contact}</Link>
+            </li>
           </ul>
           <div className="header-feature-items"> {/* ახალი div გადამრთველებისა და FocusInput-ისთვის */}
             <ThemeSwitcher />

@@ -4,6 +4,7 @@ import './App.css'
 import Header from './compontents/Header';
 import Home from './compontents/Home';
 import About from './compontents/About';
+import FollowUs from './compontents/FollowUs';
 
 function App() {
 
@@ -13,6 +14,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home/>} />
             <Route path="/about" element={<About/>} />
+            <Route path="/followus" element={<FollowUs/>} />
           </Routes>
     </BrowserRouter>
   )
